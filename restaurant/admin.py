@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Restaurant, Meal, Category, QRcode
+from .models import Meal, Category, QRcode, User
 
-# Register your models here.
-admin.site.register(Restaurant)
+admin.site.register(User)
+# admin.site.register(Restaurant)
 admin.site.register(Meal)
 admin.site.register(Category)
 admin.site.register(QRcode)

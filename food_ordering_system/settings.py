@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'restaurant.apps.RestaurantConfig',
-    'rest_framework'
+    'rest_framework',
+    'phonenumber_field',
 ]
+
+AUTH_USER_MODEL = 'restaurant.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

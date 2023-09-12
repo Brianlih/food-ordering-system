@@ -1,9 +1,9 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Restaurant, Category, Meal, QRcode
+from .models import Category, Meal, QRcode, User
 
-class RestaurantSerializer(ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
-        model = Restaurant
+        model = User
         fields = '__all__'
 
 class CategorySerializer(ModelSerializer):
