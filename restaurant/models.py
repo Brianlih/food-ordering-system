@@ -1,14 +1,15 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser, PermissionsMixin
 from phonenumber_field.modelfields import PhoneNumberField
 
-class User(AbstractUser):
+class User(AbstractUser, AbstractBaseUser, PermissionsMixin):
     address = models.TextField(null=True, blank=True)
     phone = PhoneNumberField(blank=True)
     description = models.TextField(null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
 
     REQUIRED_FIELDS = []
+    USERNAME_FIELD = 'username'
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -24,7 +25,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Meal(models.Model):
+class Item(models.Model):
     name = models.CharField(max_length=50)
     restaurant = models.ForeignKey(User, related_name='meals', on_delete=models.CASCADE)
     price = models.IntegerField()

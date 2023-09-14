@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Category, Meal, QRcode, User
+from .models import Category, Item, QRcode, User
 
 class UserSerializer(ModelSerializer):
     class Meta:
@@ -11,9 +11,9 @@ class CategorySerializer(ModelSerializer):
         model = Category
         fields = '__all__'
 
-class MealSerializer(ModelSerializer):
+class ItemSerializer(ModelSerializer):
     class Meta:
-        model = Meal
+        model = Item
         fields = '__all__'
 
 class QRcodeSerializer(ModelSerializer):
