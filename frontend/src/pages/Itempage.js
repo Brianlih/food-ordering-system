@@ -1,26 +1,26 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-const Mealpage = (props) => {
+const Itempage = (props) => {
   let params = useParams();
-  let mealId = params.id;
-  let [meal, setMeal] = useState(null);
+  let itemId = params.id;
+  let [item, setItem] = useState(null);
 
   useEffect(() => {
-    getMeal();
+    getItem();
   }, []);
 
-  let getMeal = async () => {
-    let response = await fetch(`/api/items/${mealId}`);
+  let getItem = async () => {
+    let response = await fetch(`/api/items/${itemId}`);
     let data = await response.json();
-    setMeal(data);
+    setItem(data);
   };
 
   return (
-    <div className="meal">
-      <p>{meal?.name}</p>
+    <div>
+      <p>{item?.name}</p>
     </div>
   );
 };
 
-export default Mealpage;
+export default Itempage;
