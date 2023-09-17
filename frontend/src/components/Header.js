@@ -1,5 +1,7 @@
 import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import "../App.css";
+import Menu from "../pages/Menu";
 import { ReactComponent as CartIcon } from "../assets/cart.svg";
 import { ReactComponent as MenuIcon } from "../assets/menu.svg";
 
@@ -10,9 +12,9 @@ const Header = () => {
         <CartIcon />
       </div>
       <h1 className="header-name">H cafe</h1>
-      <div className="header-menu">
+      <Link to={"/menu"} className="header-menu">
         <MenuIcon />
-      </div>
+      </Link>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ListItem from "../components/ListItem";
+import About from "../components/About";
 import "../App.css";
 
 const ItemsListPage = () => {
@@ -15,10 +16,13 @@ const ItemsListPage = () => {
   };
 
   return (
-    <div className="items-wrapper">
-      {items.map((item, index) => (
-        <ListItem key={index} item={item} />
-      ))}
+    <div>
+      <About />
+      <div className="items-wrapper">
+        {items.map((item, index) => (
+          <ListItem key={index} item={item} />
+        ))}
+      </div>
     </div>
   );
 };
