@@ -7,14 +7,20 @@ from .models import Category, Item, QRcode, User
 @api_view(['GET'])
 def get_specific_categories(request, restId):
     restaurant = User.objects.get(id=restId)
-    categories = restaurant.category_set.all()
+    categories = Category.objects.filter(restaurant=restaurant)
     serializer = CategorySerializer(categories, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def get_specific_description(request, restId):
+def get_specific_about(request, restId):
     restaurant = User.objects.get(id=restId)
     return Response(restaurant.description)
+
+@api_view(['GET'])
+def get_specific_user(request, restId):
+    restaurant = User.objects.get(id=restId)
+    serializer = UserSerializer(restaurant)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def get_items_in_specific_category(request, catId):

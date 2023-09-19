@@ -4,21 +4,23 @@ import RegisterPage from "./pages/RegisterPage";
 import LandingPage from "./pages/LandingPage";
 import ItemsListPage from "./pages/ItemsListPage";
 import Itempage from "./pages/Itempage";
-import Menu from "./pages/Menu";
+import About from "./components/About";
 import "./App.css";
 
 function App() {
   return (
     <Router>
-      <div>
-        <Routes>
-          <Route exact path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/:restaurantId" element={<ItemsListPage />} />
-          <Route path="/items/:id" element={<Itempage />} />
-          <Route path="/menu" element={<Menu />} />
-        </Routes>
+      <div className="wrapper">
+        <div className="wrapper-in">
+          <Routes>
+            <Route exact path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/:restaurantId" element={<ItemsListPage />} />
+            <Route path="/:restaurantId/items/:id" element={<Itempage />} />
+            <Route path="/:restaurantId/about" element={<About />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );

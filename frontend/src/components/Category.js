@@ -4,17 +4,19 @@ import "../App.css";
 
 const Category = ({ cat }) => {
   let [items, setItems] = useState([]);
-  useEffect(() => {
-    getItems();
-  }, []);
 
   let getItems = async () => {
     let response = await fetch(`/api/${cat.id}/items/`);
     let data = await response.json();
     setItems(data);
   };
+
+  useEffect(() => {
+    getItems();
+  }, []);
+
   return (
-    <div>
+    <div id={`category-${cat.id}`}>
       <p className="category-title">{cat.name}</p>
       <div className="items-wrapper">
         {items.map((item, index) => (
