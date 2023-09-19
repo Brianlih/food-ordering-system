@@ -1,10 +1,11 @@
 import "../App.css";
+import coffeeImage from "../assets/coffee.jpeg";
 
 const ListItem = ({ item }) => {
   return (
     <div className="item">
       <img
-        src={item.image ? item.image : `${process.env.PUBLIC_URL}/coffee.jpeg`}
+        src={item.image ? item.image : coffeeImage}
         className="item__img"
         alt=""
       />

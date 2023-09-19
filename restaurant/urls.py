@@ -7,7 +7,10 @@ urlpatterns = [
 
     # For items list page
     path('<str:catId>/items/', views.get_items_in_specific_category, name="items_in_specific_category"),
-    path('<str:restId>/description/', views.get_specific_description, name="specific_description"),
+    path('<str:restId>/about/', views.get_specific_about, name="specific_about"),
+
+    # For about page
+    path('users/<str:restId>/', views.get_specific_user, name="specific_user"),
 
     # For item page
     path('item/<str:itemId>/', views.get_specific_item, name="specific_item"),
