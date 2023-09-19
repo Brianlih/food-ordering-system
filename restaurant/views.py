@@ -5,6 +5,37 @@ from .serializers import UserSerializer, CategorySerializer, ItemSerializer, QRc
 from .models import Category, Item, QRcode, User
 
 @api_view(['GET'])
+def get_specific_categories(request, restId):
+    restaurant = User.objects.get(id=restId)
+    categories = restaurant.category_set.all()
+    serializer = CategorySerializer(categories, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_specific_description(request, restId):
+    restaurant = User.objects.get(id=restId)
+    return Response(restaurant.description)
+
+@api_view(['GET'])
+def get_items_in_specific_category(request, catId):
+    category = Category.objects.get(id=catId)
+    items = Item.objects.filter(category=category)
+    serializer = ItemSerializer(items, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_specific_item(request, itemId):
+    item = Item.objects.get(id=itemId)
+    serializer = ItemSerializer(item)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_qrcodes(request):
+    qrcodes = QRcode.objects.all()
+    serializer = QRcodeSerializer(qrcodes, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
 def get_users(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
@@ -23,13 +54,7 @@ def get_items(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def get_item(request, pk):
-    item = Item.objects.get(id=pk)
+def get_item(request, itemId):
+    item = Item.objects.get(id=itemId)
     serializer = ItemSerializer(item)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def get_qrcodes(request):
-    qrcodes = QRcode.objects.all()
-    serializer = QRcodeSerializer(qrcodes, many=True)
     return Response(serializer.data)

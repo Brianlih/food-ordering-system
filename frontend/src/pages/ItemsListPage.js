@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
-import ListItem from "../components/ListItem";
-import About from "../components/About";
+import { useState, useEffect } from "react";
+import Header from "../components/Header";
+import Category from "../components/Category";
 import "../App.css";
 
 const ItemsListPage = () => {
-  let [items, setItems] = useState([]);
+  let [categories, setCategories] = useState([]);
   useEffect(() => {
-    getItems();
+    getCategories();
   }, []);
 
-  let getItems = async () => {
-    let response = await fetch("/api/items/");
+  let getCategories = async () => {
+    let response = await fetch("/api/categories/");
     let data = await response.json();
-    setItems(data);
+    setCategories(data);
   };
 
   return (
     <div>
-      <About />
-      <div className="items-wrapper">
-        {items.map((item, index) => (
-          <ListItem key={index} item={item} />
+      <Header />
+      <div className="categories-wrapper">
+        {categories.map((cat, index) => (
+          <Category key={index} cat={cat} />
         ))}
       </div>
     </div>

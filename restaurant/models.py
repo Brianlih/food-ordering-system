@@ -3,13 +3,14 @@ from django.contrib.auth.models import AbstractUser, AbstractBaseUser, Permissio
 from phonenumber_field.modelfields import PhoneNumberField
 
 class User(AbstractUser, AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True, null=True)
     address = models.TextField(null=True, blank=True)
     phone = PhoneNumberField(blank=True)
     description = models.TextField(null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
 
     REQUIRED_FIELDS = []
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = 'email'
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -26,12 +27,13 @@ class Category(models.Model):
         return self.name
 
 class Item(models.Model):
-    name = models.CharField(max_length=50)
-    restaurant = models.ForeignKey(User, related_name='meals', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    restaurant = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
     price = models.IntegerField()
     is_set = models.BooleanField(default=False)
     vegetarian = models.BooleanField(default=False)
-    category = models.ForeignKey(Category, related_name='meals', on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, related_name='items', on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(blank=True, null=True)
     description = models.TextField(null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
