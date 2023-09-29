@@ -7,13 +7,11 @@ import "../App.css";
 
 const ItemsListPage = () => {
   const { restaurantId } = useParams();
-  const [loadingMenu, setLoadingMenu] = useState(true);
 
   let getCategories = async () => {
     let response = await fetch(`/api/${restaurantId}/categories/`);
     let data = await response.json();
     setCategories(data);
-    setLoadingMenu(false);
   };
 
   let [categories, setCategories] = useState([]);
@@ -24,11 +22,7 @@ const ItemsListPage = () => {
   return (
     <div>
       <Header restaurantId={restaurantId} />
-      {loadingMenu ? (
-        <div>Loading menu...</div>
-      ) : (
-        <Categories categories={categories} />
-      )}
+      <Categories categories={categories} />
       <div>
         {categories.map((cat, index) => (
           <Category key={index} cat={cat} />
