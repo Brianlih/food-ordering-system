@@ -3,12 +3,15 @@ import Modal from "react-modal";
 import ListItem from "../components/ListItem";
 import coffeeImage from "../assets/coffee.jpeg";
 import "../App.css";
+import { useCartContext } from "../contexts/cart_context";
 
 const Category = ({ cat }) => {
-  let [items, setItems] = useState([]);
-  let [selectedItem, setSelectedItem] = useState("");
-  let [quantity, setQuantity] = useState(1);
-  let [isModalOpen, setIsModalOpen] = useState(false);
+  const [items, setItems] = useState([]);
+  const [selectedItem, setSelectedItem] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { addToCart } = useCartContext();
 
   const openModal = (item) => {
     setIsModalOpen(true);
@@ -63,7 +66,7 @@ const Category = ({ cat }) => {
             <p>{selectedItem.description}</p>
           </div>
           <div className="item-quantity-container">
-            <span>數量</span>
+            <span>Amount</span>
             <div className="item-quantity">
               <button
                 type="button"
@@ -94,9 +97,13 @@ const Category = ({ cat }) => {
           <button
             type="button"
             className="add-to-cart-button"
-            onClick={closeModal}
+            onClick={() => {
+              addToCart(selectedItem, quantity);
+              setQuantity(1);
+              closeModal();
+            }}
           >
-            加入購物車
+            Add to Cart
           </button>
         </div>
       </Modal>
