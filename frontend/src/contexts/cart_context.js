@@ -4,14 +4,33 @@ export const CartContext = createContext(null);
 
 export function CartContextProvider({ children }) {
   const [selectedItems, setSelectedItems] = useState([]);
+
   const addToCart = (itemObject, quantity) => {
-    setSelectedItems((prevState) => [...prevState, { itemObject, quantity }]);
+    const itemIndex = selectedItems.findIndex(
+      (item) => item.itemObject.id === itemObject.id
+    );
+
+    if (itemIndex !== -1) {
+      const updatedItems = selectedItems.map((item, index) => {
+        if (index === itemIndex) {
+          return {
+            ...item,
+            quantity: item.quantity + quantity,
+          };
+        }
+        return item;
+      });
+
+      setSelectedItems(updatedItems);
+    } else {
+      setSelectedItems((prevItems) => [...prevItems, { itemObject, quantity }]);
+    }
   };
 
   const updateCartItemQuantity = (selectedItem, newQuantity) => {
     setSelectedItems((prevItems) =>
       prevItems.map((item) =>
-        item.itemObject.name === selectedItem.itemObject.name
+        item.itemObject === selectedItem.itemObject
           ? { itemObject: selectedItem.itemObject, quantity: newQuantity }
           : item
       )
@@ -20,10 +39,12 @@ export function CartContextProvider({ children }) {
 
   const removeFromCart = (selectedItem) => {
     setSelectedItems((prevItems) =>
-      prevItems.filter(
-        (item) => item.itemObject.name !== selectedItem.itemObject.name
-      )
+      prevItems.filter((item) => item.itemObject !== selectedItem.itemObject)
     );
+  };
+
+  const clearCart = () => {
+    setSelectedItems([]);
   };
   /* children means the all sub-components wrapped in CartContext.Provider,
     and this kind of components can access the data (which are
@@ -36,6 +57,7 @@ export function CartContextProvider({ children }) {
         addToCart,
         updateCartItemQuantity,
         removeFromCart,
+        clearCart,
       }}
     >
       {children}

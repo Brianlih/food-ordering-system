@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Category, Item, QRcode, User
+from .models import Category, Item, QRcode, User, OrderedItem
 
 class UserSerializer(ModelSerializer):
     class Meta:
@@ -14,6 +14,11 @@ class CategorySerializer(ModelSerializer):
 class ItemSerializer(ModelSerializer):
     class Meta:
         model = Item
+        fields = '__all__'
+
+class OrderedItemSerializer(ModelSerializer):
+    class Meta:
+        model = OrderedItem
         fields = '__all__'
 
 class QRcodeSerializer(ModelSerializer):

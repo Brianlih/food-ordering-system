@@ -13,7 +13,7 @@ const Header = ({ restaurantId }) => {
   const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
-  const { selectedItems } = useCartContext();
+  const { selectedItems, clearCart } = useCartContext();
 
   let getRestaurant = async () => {
     let response = await fetch(`/api/users/${restaurantId}/`);
@@ -47,13 +47,46 @@ const Header = ({ restaurantId }) => {
     setIsCartModalOpen(false);
   };
 
+  const placeOrder = (selectedItems) => {
+    if (selectedItems.length > 0) {
+      const csrfToken = getCookie("csrftoken");
+
+      const itemsArray = selectedItems.map((selectedItem) => ({
+        item: selectedItem.itemObject.id,
+        quantity: selectedItem.quantity,
+      }));
+
+      fetch("/api/place_order/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
+        },
+        body: JSON.stringify({ items: itemsArray }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Order placed successfully:", data);
+        })
+        .catch((error) => {
+          console.error("Error placing order:", error);
+        });
+    }
+  };
+
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  };
+
   return (
     <div className="header-container">
       <div className="header-cart">
         <CartIcon onClick={() => openCartModal()} />
         <p className="item-count-in-cart">{itemCounts}</p>
       </div>
-      <h1 className="header-name">{restaurant.username}</h1>
+      <h1 className="header-name">{restaurant.name}</h1>
       <button onClick={() => openAboutModal()} className="header-about">
         About
       </button>
@@ -79,6 +112,8 @@ const Header = ({ restaurantId }) => {
               type="button"
               className="place-order-button"
               onClick={() => {
+                placeOrder(selectedItems);
+                clearCart();
                 closeCartModal();
               }}
             >

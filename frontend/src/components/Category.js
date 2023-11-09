@@ -36,6 +36,7 @@ const Category = ({ cat }) => {
     <div>
       <div id={`category-${cat.id}`}>
         <p className="category-title">{cat.name}</p>
+
         <div className="items-wrapper">
           {items.map((item, index) => (
             <ListItem key={index} item={item} onClick={() => openModal(item)} />
@@ -58,15 +59,19 @@ const Category = ({ cat }) => {
               alt=""
             />
           </div>
+
           <div className="item-ordering-name-price">
             <p className="item-ordering-name">{selectedItem.name}</p>
             <p className="item-ordering-price">{selectedItem.price}</p>
           </div>
-          <div className="item-ordering-description">
+
+          {/* <div className="item-ordering-description">
             <p>{selectedItem.description}</p>
-          </div>
+          </div> */}
+
           <div className="item-quantity-container">
             <span>Amount</span>
+
             <div className="item-quantity">
               <button
                 type="button"
@@ -79,12 +84,15 @@ const Category = ({ cat }) => {
               >
                 -
               </button>
+
               <input
                 type="number"
                 value={quantity}
+                readOnly
                 onChange={() => setQuantity(quantity)}
                 className="item-quantity-inputbox"
               />
+
               <button
                 type="button"
                 onClick={() => setQuantity(quantity + 1)}
@@ -94,6 +102,13 @@ const Category = ({ cat }) => {
               </button>
             </div>
           </div>
+
+          {/* <div className="option-area">
+            <div className="item-option-flavour">
+              <span>Flavour</span>
+            </div>
+          </div> */}
+
           <button
             type="button"
             className="add-to-cart-button"

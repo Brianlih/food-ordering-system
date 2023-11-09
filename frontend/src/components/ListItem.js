@@ -11,7 +11,7 @@ const ListItem = ({ item, onClick }) => {
       />
       <div className="item__body">
         <h2 className="item__name">{item.name}</h2>
-        <p className="item__description">{item.description}</p>
+        {/* <p className="item__description">{item.description}</p> */}
         <h3 className="item__price">{item.price}</h3>
       </div>
     </div>

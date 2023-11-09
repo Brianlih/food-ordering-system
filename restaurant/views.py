@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import UserSerializer, CategorySerializer, ItemSerializer, QRcodeSerializer
-from .models import Category, Item, QRcode, User
+from .serializers import UserSerializer, CategorySerializer, ItemSerializer, QRcodeSerializer, OrderedItemSerializer
+from .models import Category, Item, QRcode, User, Order, OrderedItem
 
 @api_view(['GET'])
 def get_specific_categories(request, restId):
@@ -33,6 +33,23 @@ def get_specific_item(request, itemId):
     item = Item.objects.get(id=itemId)
     serializer = ItemSerializer(item)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def place_order(request):
+    order = Order.objects.create(restaurant=request.user)
+    
+    for item in request.data['items']:
+        item['order'] = order.id
+
+    serializer = OrderedItemSerializer(data=request.data.get('items', []), many=True)
+    serializer.is_valid(raise_exception=True)
+
+    for item_data in serializer.validated_data:
+        item = item_data['item']
+        quantity = item_data['quantity']
+        OrderedItem.objects.create(order=order, item=item, quantity=quantity)
+
+    return Response({'message': 'Order placed successfully'})
 
 @api_view(['GET'])
 def get_qrcodes(request):
