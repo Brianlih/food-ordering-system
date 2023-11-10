@@ -56,7 +56,7 @@ const Header = ({ restaurantId }) => {
         quantity: selectedItem.quantity,
       }));
 
-      fetch("/api/place_order/", {
+      fetch(`/api/${restaurantId}/place_order/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

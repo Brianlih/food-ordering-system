@@ -16,7 +16,7 @@ urlpatterns = [
     path('item/<str:itemId>/', views.get_specific_item, name="specific_item"),
     
     # For cart page
-    path('place_order/', views.place_order, name="place_order"),
+    path('<str:restId>/place_order/', views.place_order, name="place_order"),
 
     # For customers
     path('qrcodes/', views.get_qrcodes, name="qrcodes"),

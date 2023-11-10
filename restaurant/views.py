@@ -35,8 +35,9 @@ def get_specific_item(request, itemId):
     return Response(serializer.data)
 
 @api_view(['POST'])
-def place_order(request):
-    order = Order.objects.create(restaurant=request.user)
+def place_order(request, restId):
+    restaurant = User.objects.get(id=restId)
+    order = Order.objects.create(restaurant=restaurant)
     
     for item in request.data['items']:
         item['order'] = order.id
