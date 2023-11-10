@@ -35,7 +35,7 @@ class Item(models.Model):
     is_set = models.BooleanField(default=False)
     vegetarian = models.BooleanField(default=False)
     category = models.ForeignKey(Category, related_name='items', on_delete=models.SET_NULL, null=True)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to="./", blank=True, null=True)
     description = models.TextField(null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
