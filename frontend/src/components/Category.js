@@ -2,8 +2,15 @@ import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import ListItem from "../components/ListItem";
 import coffeeImage from "../assets/coffee.jpeg";
-import "../App.css";
 import { useCartContext } from "../contexts/cart_context";
+import "../App.css";
+// import {
+//   FormControl,
+//   FormLabel,
+//   FormControlLabel,
+//   RadioGroup,
+//   Radio,
+// } from "@mui/material";
 
 const Category = ({ cat }) => {
   const [items, setItems] = useState([]);
@@ -64,6 +71,34 @@ const Category = ({ cat }) => {
             <p className="item-ordering-name">{selectedItem.name}</p>
             <p className="item-ordering-price">{selectedItem.price}</p>
           </div>
+
+          {/* <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label">Flavour</FormLabel>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="female"
+              name="radio-buttons-group"
+            >
+              {items.map((item, index) => (
+                <FormControlLabel
+                  value="female"
+                  control={<Radio />}
+                  label="Female"
+                />
+              ))}
+              <FormControlLabel
+                value="female"
+                control={<Radio />}
+                label="Female"
+              />
+              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <FormControlLabel
+                value="other"
+                control={<Radio />}
+                label="Other"
+              />
+            </RadioGroup>
+          </FormControl> */}
 
           {/* <div className="item-ordering-description">
             <p>{selectedItem.description}</p>
