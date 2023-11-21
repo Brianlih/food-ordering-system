@@ -6,10 +6,10 @@ import Categories from "../components/Categories";
 import "../App.css";
 
 const ItemsListPage = () => {
-  const { restaurantId } = useParams();
+  const { restId } = useParams();
 
   let getCategories = async () => {
-    let response = await fetch(`/api/${restaurantId}/categories/`);
+    let response = await fetch(`/api/${restId}/categories/`);
     let data = await response.json();
     setCategories(data);
   };
@@ -21,7 +21,7 @@ const ItemsListPage = () => {
 
   return (
     <div>
-      <Header restaurantId={restaurantId} />
+      <Header restaurantId={restId} />
       <Categories categories={categories} />
       <div>
         {categories.map((cat, index) => (

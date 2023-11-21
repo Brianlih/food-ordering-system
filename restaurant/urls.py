@@ -8,6 +8,7 @@ urlpatterns = [
     # For items list page
     path('<str:catId>/items/', views.get_items_in_specific_category, name="items_in_specific_category"),
     path('<str:restId>/about/', views.get_specific_about, name="specific_about"),
+    path('table/<str:tableId>/', views.get_specific_table, name="specific_table"),
 
     # For about page
     path('users/<str:restId>/', views.get_specific_user, name="specific_user"),

@@ -99,9 +99,9 @@ class Order(models.Model):
             total_price += ordered_item.item.price * ordered_item.quantity
         return total_price
     
-    def __str__(self):
-        formatted_date = self.order_date.strftime('%Y%m%d')
-        return formatted_date + '__' + self.table.name
+    # def __str__(self):
+    #     formatted_date = self.order_date.strftime('%Y%m%d')
+    #     return formatted_date + '__' + self.table.name
 
 class OrderedItem(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)

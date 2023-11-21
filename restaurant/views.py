@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import UserSerializer, CategorySerializer, ItemSerializer, QRcodeSerializer, OrderedItemSerializer
-from .models import Category, Item, QRcode, User, Order, OrderedItem
+from .serializers import UserSerializer, CategorySerializer, ItemSerializer, QRcodeSerializer, OrderedItemSerializer, TableSerializer
+from .models import Category, Item, QRcode, User, Order, OrderedItem, Table
 
 @api_view(['GET'])
 def get_specific_categories(request, restId):
@@ -19,6 +19,12 @@ def get_specific_about(request, restId):
 def get_specific_user(request, restId):
     restaurant = User.objects.get(id=restId)
     serializer = UserSerializer(restaurant)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_specific_table(request, tableId):
+    table = Table.objects.get(id=tableId)
+    serializer = TableSerializer(table)
     return Response(serializer.data)
 
 @api_view(['GET'])

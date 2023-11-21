@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Modal from "react-modal";
 import "../App.css";
 import { ReactComponent as CartIcon } from "../assets/cart.svg";
@@ -7,6 +8,8 @@ import { useCartContext } from "../contexts/cart_context";
 import CartHeader from "./CartHeader";
 
 const Header = ({ restaurantId }) => {
+  const { tableId } = useParams();
+  const [table, setTable] = useState("");
   const [restaurant, setRestaurant] = useState("");
   const [itemCounts, setItemCounts] = useState(0);
 
@@ -21,8 +24,15 @@ const Header = ({ restaurantId }) => {
     setRestaurant(data);
   };
 
+  let getTable = async () => {
+    let response = await fetch(`/api/table/${tableId}/`);
+    let data = await response.json();
+    setTable(data);
+  };
+
   useEffect(() => {
     getRestaurant();
+    getTable();
   }, []);
 
   useEffect(() => {
@@ -62,7 +72,7 @@ const Header = ({ restaurantId }) => {
           "Content-Type": "application/json",
           "X-CSRFToken": csrfToken,
         },
-        body: JSON.stringify({ items: itemsArray }),
+        body: JSON.stringify({ items: itemsArray, table: table }),
       })
         .then((response) => response.json())
         .then((data) => {

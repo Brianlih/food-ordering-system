@@ -37,15 +37,6 @@ body {
   background-color: rgb(245, 245, 245);
 }
 
-.wrapper {
-  max-width: 768px;
-  margin: 0 auto;
-}
-
-.wrapper-in {
-  background-color: #fff;
-}
-
 /* =================================Header================================= */
 .header-container {
   display: flex;
